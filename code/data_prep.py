@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
-
 # importing libraries
 import pandas as pd
 import numpy as np
@@ -23,7 +20,7 @@ def make_id(name):
     return name
 
 
-def original_prep(df,ods):
+def original_prep(df, ods):
     """
     This function cleans and prepares the original dataset.
     """
@@ -84,7 +81,7 @@ def original_prep(df,ods):
     return df_clean
 
 
-def res_prep(res,ods):
+def res_prep(res, ods):
     """
     This function cleans and prepares the residential dataset.
     """
@@ -308,13 +305,12 @@ def merge_prep(sales_clean, orig_clean, res_clean, parcel_clean, ods_clean):
                    '_norm'] = (data_clean[i] -
                                data_clean[i].mean()) / (data_clean[i].std())
     data_clean = data_clean[[
-        'price', 'bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot',
-        'sqft_basement', 'floors', 'grade', 'population', 'density',
-        'bedrooms_norm', 'bathrooms_norm', 'view', 'waterfront', 'greenbelt',
-        'nuisance', 'condition', 'yr_built', 'yr_renovated', 'zipcode',
-        'yr_last_construction', 'sqft_living_norm', 'sqft_lot_norm',
+        'price', 'sqft_living', 'bedrooms', 'bathrooms', 'sqft_lot',
+        'sqft_basement', 'floors', 'grade', 'population', 'density', 'view',
+        'waterfront', 'greenbelt', 'nuisance', 'condition', 'yr_built',
+        'yr_renovated', 'yr_last_construction', 'zipcode', 'sqft_living_norm',
+        'bedrooms_norm', 'bathrooms_norm', 'sqft_lot_norm',
         'sqft_basement_norm', 'floors_norm', 'grade_norm', 'population_norm',
         'density_norm', 'view_norm'
     ]]
     return data_clean
-
