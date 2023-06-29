@@ -129,7 +129,7 @@ def pair_viz(df):
                  plot_kws={'line_kws': {
                      'color': 'red'
                  }})
-    plt.show
+    plt.show()
 
 
 def box_viz(df):
@@ -153,4 +153,87 @@ def heat_viz(df):
     ]
     fig, ax = plt.subplots(figsize=(8, 8))
     sns.heatmap(df[heat].corr().abs(), annot=True, ax=ax)
+    plt.show()
+
+def sqft_viz(df):
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sns.regplot(data=df,
+                y='price',
+                x='sqft_living',
+                scatter_kws={'alpha': 0.1},
+                line_kws={'color': 'red'},
+                ax=ax)
+    ax.set(title='Comparing Sale Price to Square Footage',
+           xlim=(0, df['sqft_living'].max() - 500),
+           ylim=(0, df['price'].max() + 250000),
+           ylabel=('Sales Price (in millions)'),
+           xlabel=('Square Footage of Living Space'))
+    ax.yaxis.set_major_formatter(lambda x, pos: f'${round(x/1000000,1)}')
+    ax.tick_params(axis='x', rotation=30)
+    fig.tight_layout()
+    plt.show()
+
+
+def water_viz(df):
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sns.barplot(data=df, y='price', x='waterfront', ax=ax)
+    ax.set(title='Comparing Sale Price to Proximity to Waterfront',
+           ylabel=('Sales Price (in millions)'),
+           xlabel=(''),
+           xticklabels=(['Not on Waterfront', 'On Waterfront']))
+    ax.yaxis.set_major_formatter(lambda x, pos: f'${round(x/1000000,1)}')
+    plt.axhline(y=df['price'].mean(),
+                ls='--',
+                color='purple',
+                label='Mean Sale Price')
+    ax.legend()
+    fig.tight_layout()
+    plt.show()
+
+
+def zip_viz(df):
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sns.histplot(data=df.groupby('zipcode').median()['price'], ax=ax, bins=15)
+    ax.set(title='Median Sales Price by Zip Code',
+           ylabel=('Number of Zip Codes'),
+           xlabel=('Sales Price (in millions)'))
+    ax.xaxis.set_major_formatter(lambda x, pos: f'${round(x/1000000,1)}')
+    plt.yticks(ticks=np.arange(21, step=2, dtype=int))
+    plt.axvline(x=df['price'].mean(),
+                ls='--',
+                color='purple',
+                label='Mean Sale Price')
+    ax.legend()
+    fig.tight_layout()
+    plt.show()
+
+
+def part_viz(df):
+    features = ['price', 'sqft_living_norm', 'waterfront', 'zipcode']
+    X = pd.get_dummies(df[features]).drop(columns=[
+        'zipcode_98059', 'zipcode_98019', 'zipcode_98045', 'zipcode_98106',
+        'zipcode_98108', 'zipcode_98146', 'zipcode_98166', 'zipcode_98014',
+        'zipcode_98051', 'zipcode_98070'
+    ])
+    cols = X.columns[2:]
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sm.graphics.plot_partregress(endog=X['price'],
+                                 exog_i=X['sqft_living_norm'],
+                                 exog_others=X[cols],
+                                 obs_labels=False,
+                                 alpha=0.1,
+                                 ax=ax)
+    ax.set(title='Partial Regression Plot for Square Feet',
+           ylabel=('Sales Price (in millions)'),
+           xlabel=('Square Footage of Living Space'))
+    x_ticks = (np.arange(9000, step=1000, dtype=int) -
+               df['sqft_living'].mean()) / df['sqft_living'].std()
+    plt.xticks(ticks=x_ticks)
+    ax.yaxis.set_major_formatter(lambda x, pos: f'${round(x/1000000,1)}')
+    ax.xaxis.set_major_formatter(lambda x, pos: int(x * df['sqft_living'].std(
+    ) + df['sqft_living'].mean()))
+
+    ax.tick_params(axis='x', rotation=30)
+
+    fig.tight_layout()
     plt.show()
