@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.api as sm
+import scipy.stats as stats
 
 
 def baseline(df):
@@ -192,6 +193,9 @@ def water_viz(df):
 
 
 def zip_viz(df):
+    final_results, res_df = final_res(df)
+    zips = final_results.params[3:]
+    zips.describe()
     fig, ax = plt.subplots(figsize=(8, 6))
     sns.histplot(data=df.groupby('zipcode').median()['price'], ax=ax, bins=15)
     ax.set(title='Median Sales Price by Zip Code',
@@ -237,3 +241,31 @@ def part_viz(df):
 
     fig.tight_layout()
     plt.show()
+    
+    
+def zip_coef_viz(df,results):
+    zips = results.params[3:]
+    fig, ax = plt.subplots(figsize=(6.5, 4))
+    sns.histplot(zips, bins=20, ax=ax)
+    ax.set(title="Zip Code's Effect on Sale price",
+           ylabel=('Frequency of Zip Code'),
+           xlabel=('Coefficient (in millions)'))
+    ax.xaxis.set_major_formatter(lambda x, pos: f'$ {round(x/1000000,2)}')
+    ax.tick_params(axis='x', rotation=30)
+    plt.yticks(ticks=np.arange(16, step=2, dtype=int))
+    fig.tight_layout()
+    plt.show()
+    
+def resid_vis(df,results):
+    fig, ax = plt.subplots(figsize=(6.5, 4))
+    plt.scatter(df["price"], results.resid, alpha=0.2)
+    plt.axhline(y=0, color="black")
+    ax.set_xlabel("price")
+    ax.set_ylabel("residuals")
+    plt.show();
+              
+def qq_viz(df,results):
+    fig, ax = plt.subplots(figsize=(6.5, 4))
+    sm.graphics.qqplot(results.resid, dist=stats.norm, line='45', fit=True, ax=ax)
+    plt.show();
+           
