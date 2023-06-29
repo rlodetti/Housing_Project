@@ -43,8 +43,7 @@ Since `sqft_living` is the feature with the strongest correlation, I will use th
 **Target Variable:** price <br> 
 **Predictor Variable:** sqft_living
 
-<img src="./images/sqft.jpg" width="450" 
-     height="600" >
+<img src="./images/sqft.jpg">
 
 #### Baseline Interpretation Model
 The baseline model is statistically significant and explains about 42% of the variance in price. In a typical prediction, the model is off by about \\$305k.
@@ -76,9 +75,7 @@ I decided to have my final model be the step where `greenbelt` was dropped (inde
 **Target Variable:** price <br>
 **Predictor Variables:** sqft_living_norm, waterfront, and 65 different zip codes.
 
-<img src="./images/waterfront.jpg" width="450" 
-     height="600" > <img src="./images/zipcodes.jpg" width="450" 
-     height="600" >
+<img src="./images/waterfront.jpg"> <img src="./images/zipcodes.jpg">
 
 ## Regression Results
 ***
