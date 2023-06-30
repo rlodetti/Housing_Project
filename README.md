@@ -28,6 +28,10 @@ As well as a dataset from [OpenDataSoft](https://data.opendatasoft.com/) to gath
 
 Once merged, it consisted of 47,579 property sales, each containing information on 19 unique variables. 
 
+<img src="./images/price.png">
+
+<img src="./images/pair.png">
+
 ## Modeling
 ***
 Since I only have a sample of the data, that is, the price of homes that have sold and not the price of all of the homes in King County, WA, I have decided to statistical analysis. This will allow me to make inferences based the sample data I have. 
@@ -43,7 +47,7 @@ Since `sqft_living` is the feature with the strongest correlation, I will use th
 **Target Variable:** price <br> 
 **Predictor Variable:** sqft_living
 
-<img src="./images/sqft.jpg">
+<img src="./images/sqft.png">
 
 #### Baseline Interpretation Model
 The baseline model is statistically significant and explains about 42% of the variance in price. In a typical prediction, the model is off by about \\$305k.
@@ -75,7 +79,7 @@ I decided to have my final model be the step where `greenbelt` was dropped (inde
 **Target Variable:** price <br>
 **Predictor Variables:** sqft_living_norm, waterfront, and 65 different zip codes.
 
-<img src="./images/waterfront.jpg"> <img src="./images/zipcodes.jpg">
+<img src="./images/water.png"> <img src="./images/zip.png">
 
 ## Regression Results
 ***
@@ -129,8 +133,9 @@ For additional info, contact Ron Lodetti at [ron.lodetti@gmail.com](mailto:ron.l
 ```
 ├── code
 │   ├── __init__.py
+│   ├── data_modeling.py
 │   ├── data_prep.py
-│   └── data_modeling.py
+│   └── data_visuals.py
 ├── data
 ├── images
 ├── README.md
