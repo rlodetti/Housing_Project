@@ -50,7 +50,7 @@ Since `sqft_living` is the feature with the strongest correlation, I will use th
 #### Baseline Interpretation Model
 The baseline model is statistically significant and explains about 42% of the variance in price. In a typical prediction, the model is off by about $305k.
 
-The intercept is at about $145,700. This means that a house with the zero square footage of living space in the home would sell for \\$145,700.
+The intercept is at about $145,700. This means that a house with the zero square footage of living space in the home would sell for \$145,700.
 
 The coefficient for `sqft_living` is about $423. This means for each increase of 1 square foot of living space in the home, we see an associated increase of about \\$423.
 
