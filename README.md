@@ -52,7 +52,7 @@ The baseline model is statistically significant and explains about 42% of the va
 
 The intercept is at about $145,700. This means that a house with the zero square footage of living space in the home would sell for \$145,700.
 
-The coefficient for `sqft_living` is about $423. This means for each increase of 1 square foot of living space in the home, we see an associated increase of about \\$423.
+The coefficient for `sqft_living` is about $423. This means for each increase of 1 square foot of living space in the home, we see an associated increase of about \$423.
 
 ### Recursive Feature Elimination
 To begin my model iteration, I included all of the relevant features. Then I removed one feature at a time starting with any feature with a p-value larger than 0.01. Then I removed the feature with the smallest absolute coefficient as that means it has the least effect of `price`. I used the adjusted R-squared value, Mean Absolute Error, and Conditional Number to judge the model and help me decide when to stop removing features. I have also normalized each numeric feature to make it easier to compare their coefficients. 
@@ -82,13 +82,13 @@ I decided to have my final model be the step where `greenbelt` was dropped (inde
 
 ## Regression Results
 ***
-The final model is statistically significant and explains about 72% of the variance in price, a large improvement over the original 42%. The Mean Absolute Error has also improved from $305k to \\$197k.
+The final model is statistically significant and explains about 72% of the variance in price, a large improvement over the original 42%. The Mean Absolute Error has also improved from $305k to \$197k.
 
 The intercept is at about $865,700. This represents the predicted price of a property with the average square footage of living space, not on a waterfront, and in a King County zip code not included in our model. 
 
-The coefficient for `sqft_living_norm` is about $292,100. This means for each increase of 1 standard deviation of square foot of living space in the home, we see an associated increase of about \\$292,100. Since the standard deviation of `sqft_living` is about 836, for every increase of 1 square foot of living space, we can expect and increase of about \\$349 in sale price. 
+The coefficient for `sqft_living_norm` is about $292,100. This means for each increase of 1 standard deviation of square foot of living space in the home, we see an associated increase of about \$292,100. Since the standard deviation of `sqft_living` is about 836, for every increase of 1 square foot of living space, we can expect and increase of about \$349 in sale price. 
 
-The coefficient for `waterfront` is about $480,200, which means we can expect a home on a waterfront to have an increase in sales price of \\$480,200. 
+The coefficient for `waterfront` is about $480,200, which means we can expect a home on a waterfront to have an increase in sales price of \$480,200. 
 
 Since we have 65 `zipcode` features, it would be more helpful describe their overall shape than to go one by one. Each `zipcode` coefficient represents the predicted change in sale price for properties located within that zip code.
 
