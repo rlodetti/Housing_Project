@@ -188,16 +188,46 @@ def zip_viz(df, results):
 
 def zip_coef_viz(df, results):
     zips = results.params[3:]
-    fig, ax = plt.subplots(figsize=(6.5, 4))
-    sns.histplot(zips, bins=20, ax=ax, color='tab:green')
-    ax.set(title="Zip Code's Effect on Sale price",
+    fig, ax = plt.subplots(figsize=(6, 4.5))
+    sns.histplot(zips,
+                 bins=np.arange(-500000, 2000000, step=250000),
+                 ax=ax,
+                 color='tab:green',
+                 edgecolor='black')
+    ax.set(title="Zip Code's Effect on Average Sale Price",
            ylabel=('Frequency of Zip Code'),
-           xlabel=('Coefficient (in millions)'))
-    ax.xaxis.set_major_formatter(lambda x, pos: f'$ {round(x/1000000,2)}')
-    ax.tick_params(axis='x', rotation=30)
-    plt.yticks(ticks=np.arange(16, step=2, dtype=int))
+           xlabel=('Change in Sale Price (in millions of dollars)'))
+    plt.xticks(ticks=np.arange(-500000, 2000000, step=500000))
+    ax.xaxis.set_major_formatter(lambda x, pos: f'+{round(x/1000000,2)}'
+                                 if x >= 0 else f'-{round(abs(x)/1000000,2)}')
+    lambda x: f"{x} is even" if x % 2 == 0 else f"{x} is odd"
     ax.patches[0].set_facecolor('tab:red')
     ax.patches[1].set_facecolor('tab:red')
+
     fig.tight_layout()
     plt.savefig('./images/zip_coef.png')
+    plt.show()
+
+def error_viz(df,baseline_res,final_res);
+    mean_MAE = int(abs(df['price']-df['price'].mean()).mean())
+    baseline_MAE = int(baseline_res.resid.abs().sum() / len(df))
+    final_MAE = int(final_res.resid.abs().sum() / len(df))
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sns.barplot(y =[mean_MAE,baseline_MAE,final_MAE],
+                x = ['Average\nPrice','Square\nFootage','Final\nModel'])
+    ax.set(title="Average Error by Model",
+           ylabel=('Average Error'),
+           ylim=(0, 500000))
+    ax.yaxis.set_major_formatter(lambda x, pos: f'${int(x/1000)}k')
+    ax.patches[0].set_facecolor('tab:red')
+    ax.patches[1].set_facecolor('y')
+    ax.patches[2].set_facecolor('tab:green')
+    mean_str = '$' + str(mean_MAE)[:3] + ',' + str(mean_MAE)[3:]
+    baseline_str = '$' + str(baseline_MAE)[:3] + ',' + str(baseline_MAE)[3:]
+    final_str = '$' + str(final_MAE)[:3] + ',' + str(final_MAE)[3:]
+    ax.text(x = -.25, y= mean_MAE+7000, s = mean_str)
+    ax.text(x = 0.75, y= baseline_MAE+7000, s = baseline_str)
+    ax.text(x = 1.75, y= final_MAE+7000, s = final_str)
+    fig.tight_layout()
+    plt.savefig('./images/error.png')
     plt.show()
