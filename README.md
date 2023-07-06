@@ -109,7 +109,13 @@ Based on our final model, the three features which best determine sale price are
 * **waterfront** - Whether the house is on a waterfront
 * **zipcode** - The 5-digit zip code assigned by the U.S. Postal Service. Only includes zip codes in King County, WA.
 
-I would advise the startup to gather these three pieces of data for houses currently on the market in King County, WA and recommend houses where the sale price is below what our model would determine.  
+I would advise the startup help customers find deals on home sales by:
+1. Determining customer preference of:
+  * Square Footage,
+  * Waterfront, and/or
+  * Zip Code
+1. Comparing preference with feature cost
+1. Finding prices lower than model’s prediction 
 
 ### Limitations
 There does not appear to be a linear relationship between our predictor and target variables. The residuals of our final model are also not normally distributed. Failing these two assumptions for linear regression should cast doubt as to the results of the model. This indicates that there are likely other factors that affect price which are not included in the model.
